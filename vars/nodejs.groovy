@@ -1,5 +1,8 @@
 def call () {
     node  {
+        options {
+            ansiColor('xterm')
+        }
         common.pipelineInit ()
 
         stage ('download dependencies') {

@@ -1,5 +1,8 @@
 def call () {
     node {
+        options {
+            ansiColor('xterm')
+        }
         common.pipelineInit ()
 
         stage ('build the package') {
@@ -7,6 +10,6 @@ def call () {
             sh 'ls -ltr'
         }
 
-        common.publishArtifact
+        common.publishArtifact ()
     }
 }
