@@ -7,7 +7,7 @@ def call () {
         }
 
         stage ('zip the file') {
-            sh 'zip -F server.js '
+            sh 'zip -r cart1.zip server.js node_modules'
             sh 'ls -ltr'
         }
 
