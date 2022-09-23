@@ -18,8 +18,6 @@ def publishArtifact () {
         sh """
             curl --fail -u admin:admin123 --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.8.168:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}/
         """
-    }
-
-
+        }
     }
 }
