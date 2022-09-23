@@ -1,6 +1,6 @@
 def call () {
     node  {
-        common.pipelineInit
+        common.pipelineInit ()
 
         stage ('download dependencies') {
             sh 'npm install'
