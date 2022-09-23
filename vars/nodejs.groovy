@@ -7,7 +7,7 @@ def call () {
         }
 
         stage ('zip the file') {
-            sh 'zip server.js '
+            sh 'zip -F server.js '
             sh 'ls -ltr'
         }
 
