@@ -2,6 +2,7 @@ def pipelineInit () {
     stage ('clearing old content & git clone') {
         sh 'rm -rf *'
         git branch: 'main', url: "https://github.com/devopsravi9/${COMPONENT}.git"
+        sh ' ls -ltr '
     }
 }
 
