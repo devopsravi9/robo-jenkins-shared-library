@@ -34,7 +34,7 @@ def publishArtifact () {
    stage ('upload artifact to nexus repo') {
         withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'pass', usernameVariable: 'user')]) {
             sh """
-                curl --fail -u ${user}:${pass} --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.8.168:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}/
+                curl --fail -u ${user}:${pass} --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.8.168:8081/repository/${COMPONENT}/
             """
             }
        }

@@ -7,6 +7,8 @@ def call () {
             sh 'mvn clean package'
         }
 
-        common.publishArtifact ()
+        if (env.BRANCH_NAME == env.TAG_NAME) {
+            common.publishArtifact()
+        }
     }
 }

@@ -3,6 +3,8 @@ def call () {
 
         common.pipelineInit ()
 
-        common.publishArtifact ()
+        if (env.BRANCH_NAME == env.TAG_NAME) {
+            common.publishArtifact()
+        }
     }
 }
