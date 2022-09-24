@@ -25,7 +25,7 @@ def publishArtifact () {
 
         if (env.APP_TYPE == 'nginx') {
             sh """
-                cd staic
+                cd static
                 zip -r ../${COMPONENT}-${TAG_NAME}.zip *.py *
             """
         }
