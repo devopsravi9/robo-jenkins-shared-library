@@ -1,7 +1,7 @@
 def call () {
     node () {
 
-        common.piprlineInit ()
+        common.pipelineInit ()
 
         common.publishArtifact ()
     }

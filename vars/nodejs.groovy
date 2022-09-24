@@ -7,7 +7,6 @@ def call () {
             sh 'npm install'
         }
 
-        sh 'env'
         common.publishArtifact ()
 
 
