@@ -11,9 +11,24 @@ def publishArtifact () {
             sh "zip -r ${COMPONENT}-${TAG_NAME}.zip server.js node_modules"
 
         }
-        //if (env.APP_TYPE == 'maven') {
-          //  sh "zip -r ${COMPONENT}'.zip"
-        //}
+        if (env.APP_TYPE == 'maven') {
+            sh " mv target/shipping-1.0.jar shipping.jar"
+            sh "zip -r ${COMPONENT}-${TAG_NAME}.zip  shipping.jar"
+        }
+
+        if (env.APP_TYPE == 'python') {
+            sh """
+                zip -r ${COMPONENT}-${TAG_NAME}.zip *.py payment.ini requirements.txt
+            """
+        }
+
+        if (env.APP_TYPE == 'nginx') {
+            sh """
+                cd staic
+                zip -r ../${COMPONENT}-${TAG_NAME}.zip *.py *
+            """
+        }
+
 
    stage ('upload artifact to nexus repo') {
         withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'pass', usernameVariable: 'user')]) {

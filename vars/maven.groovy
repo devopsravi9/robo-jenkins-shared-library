@@ -5,7 +5,6 @@ def call () {
 
         stage ('build the package') {
             sh 'mvn clean package'
-            sh 'ls -ltr'
         }
 
         common.publishArtifact ()
