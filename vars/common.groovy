@@ -27,6 +27,7 @@ def publishArtifact () {
             sh """
                 cd static
                 zip -r ../${COMPONENT}-${TAG_NAME}.zip *.py *
+                ls -ltr
             """
         }
 
