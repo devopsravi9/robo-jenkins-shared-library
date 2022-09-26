@@ -21,7 +21,7 @@ def testing () {
 
 def unittest () {
     stage ('run unit test') {
-        if (env.APP_TYPE = 'nodejs') {
+        if (env.APP_TYPE == 'nodejs') {
             sh 'npm run test'
             sh """
                 #npm test
