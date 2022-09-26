@@ -12,7 +12,7 @@ def testing () {
             codecheck: {
                 withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'pass', usernameVariable: 'user')]) {
                     sh """
-                        sonar-scanner -Dsonar.projectKey=cart -Dsonar.host.url=http://172.31.11.130:9000 -Dsonar.login=${user} -Dsonar.password=${pass} 
+                        sonar-scanner -Dsonar.projectKey=cart -Dsonar.host.url=http://3.238.52.216:9000 -Dsonar.login=${user} -Dsonar.password=${pass} 
                     """
                 }
 
