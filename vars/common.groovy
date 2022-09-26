@@ -22,7 +22,7 @@ def testing () {
 def unittest () {
 
     if (env.APP_TYPE == 'nodejs') {
-        sh 'npm run test'
+
         sh """
             #npm test
             echo "run unit test"
