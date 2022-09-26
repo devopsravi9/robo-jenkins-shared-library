@@ -10,6 +10,12 @@ def testing () {
     stage ('quality check & code check') {
         parallel ([
             codecheck: {
+                withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    sh """
+                        sonar-scanner -Dsonar.projectKey=cart -Dsonar.host.url=http://172.31.11.130:9000 -Dsonar.login=${user} -Dsonar.password=${pass} 
+                    """
+                }
+
                 sh 'echo code check'
             },
             unittest: {
