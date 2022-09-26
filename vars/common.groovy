@@ -56,7 +56,7 @@ def unittest () {
     }
 
 def publishArtifact () {
-    env.ENV = dev
+    env.ENV = 'dev'
     stage('prepare  artifact ') {
         if (env.APP_TYPE == 'nodejs') {
             sh "zip -r ${ENV}-${COMPONENT}-${TAG_NAME}.zip server.js node_modules"
