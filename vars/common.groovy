@@ -6,6 +6,49 @@ def pipelineInit () {
     }
 }
 
+def testing () {
+    stage ('quality check & code check') {
+        parallel ([
+            codecheck: {
+                sh 'echo code check'
+            },
+            unittest: {
+                unittest ()
+            }
+        ])
+    }
+}
+
+def unittest () {
+    stage ('run unit test') {
+        if (env.APP_TYPE = 'nodejs') {
+            sh 'npm run test'
+            sh """
+                #npm test
+                echo "run unit test"
+            """
+        }
+        if (env.APP_TYPE == 'maven') {
+            sh """
+                #maven test
+                echo "run unit test"
+            """
+        }
+        if (env.APP_TYPE == 'python') {
+            sh """
+                #python -m unittest
+                echo "run unit test"
+            """
+        }
+        if (env.APP_TYPE == 'nginx') {
+            sh """
+                #npm run test
+                echo "run unit test"
+            """
+        }
+    }
+}
+
 def publishArtifact () {
     stage ('prepare  artifact ') {
         if (env.APP_TYPE == 'nodejs') {

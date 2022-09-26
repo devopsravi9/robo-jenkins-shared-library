@@ -7,6 +7,8 @@ def call () {
             sh 'npm install'
         }
 
+        common.testing
+
         if (env.BRANCH_NAME == env.TAG_NAME) {
             common.publishArtifact()
         }
