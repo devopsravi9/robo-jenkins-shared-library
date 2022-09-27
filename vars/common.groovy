@@ -56,7 +56,7 @@ def unittest () {
     }
 
 def publishArtifact () {
-    env.ENV = 'dev'
+    env.ENV = "dev"
     stage('prepare  artifact ') {
         if (env.APP_TYPE == 'nodejs') {
             sh "zip -r ${ENV}-${COMPONENT}-${TAG_NAME}.zip server.js node_modules"
@@ -115,13 +115,15 @@ def publishArtifact () {
 }
 
 def promoteRelease (SOURCE_ENV, ENV ) {
-    stage ("upload ${ENV} articfact to nexus") {
-        sh """
-            cp ${SOURCE_ENV}-${COMPONENT}-${TAG_NAME}.zip ${ENV}-${COMPONENT}-${TAG_NAME}.zip
-            curl --fail -u ${user}:${pass} --upload-file ${ENV}-${COMPONENT}-${TAG_NAME}.zip http://172.31.8.168:8081/repository/${COMPONENT}/
-        """
-    }
+    stage ('upload artifact to nexus repo') {
+        withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'pass', usernameVariable: 'user')]) {
+            sh """
+                cp ${SOURCE_ENV}-${COMPONENT}-${TAG_NAME}.zip ${ENV}-${COMPONENT}-${TAG_NAME}.zip
+                curl --fail -u ${user}:${pass} --upload-file ${ENV}-${COMPONENT}-${TAG_NAME}.zip http://172.31.8.168:8081/repository/${COMPONENT}/
+            """
 
+        }
+    }
 }
 
 
