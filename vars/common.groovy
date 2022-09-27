@@ -95,6 +95,33 @@ def publishArtifact () {
         build job: 'deploy-any-env', parameters: [string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'ENV', value: "${ENV}"), string(name: 'TAG_NAME', value: "${TAG_NAME}")]
     }
 
+    stage ('run smoketests') {
+        sh 'echo run smoke tests'
+    }
+
+    promoteRelease ("dev","qa")
+
+    stage ('deploy to qa env') {
+        sh 'echo deploy to qa environment'
+    }
+
+    stage ('run smoketests') {
+        sh 'echo run smoke tests'
+    }
+
+    promoteRelease ("qa","prod")
+
 
 }
+
+def promoteRelease (SOURCE_ENV, ENV ) {
+    stage ("upload ${ENV} articfact to nexus") {
+        sh """
+        cp ${SOURCE_ENV}-${COMPONENT}-${TAG_NAME}.zip ${ENV}-${COMPONENT}-${TAG_NAME}.zip
+        curl --fail -u ${user}:${pass} --upload-file ${ENV}-${COMPONENT}-${TAG_NAME}.zip http://172.31.8.168:8081/repository/${COMPONENT}/
+    """
+    }
+
+}
+
 
