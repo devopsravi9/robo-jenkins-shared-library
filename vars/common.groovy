@@ -99,7 +99,7 @@ def publishArtifact () {
         sh 'echo run smoke tests'
     }
 
-    common.promoteRelease ("dev","qa")
+    promoteRelease ("dev","qa")
 
     stage ('deploy to qa env') {
         sh 'echo deploy to qa environment'
@@ -109,7 +109,7 @@ def publishArtifact () {
         sh 'echo run smoke tests'
     }
 
-    common.promoteRelease ("qa","prod")
+    promoteRelease ("qa","prod")
 
 
 }
