@@ -1,13 +1,13 @@
 def call () {
     node () {
         stage ('pipeline init') {
-            sh 'pipeline init'
+            sh 'terraform init'
         }
         stage ('pipeline plan') {
-            sh 'pipeline plan'
+            sh 'terraform plan'
         }
         stage ('pipeline apply') {
-            sh 'pipeline apply -auto-approve'
+            sh 'terraform apply -auto-approve'
         }
     }
 }
