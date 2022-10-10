@@ -1,13 +1,20 @@
 def call () {
     node () {
-        stage ('pipeline init') {
-            sh 'terraform init'
+        properties([
+            parameters([
+                choice(choices: ['dev\nprod'], description: "choose environment ", name: "ENV"),
+                choice(choices: ['apply\ndestroy'], description: "choose action ", name: "ACTION"),
+            ]),
+        ])
+
+        stage ('terraform init') {
+            sh 'terraform init -backend-config=env/${ENV}-backend.tfvars'
         }
-        stage ('pipeline plan') {
-            sh 'terraform plan'
+        stage ('terraform plan') {
+            sh 'terraform plan -backend-config=env/${ENV}-backend.tfvars'
         }
-        stage ('pipeline apply') {
-            sh 'terraform apply -auto-approve'
+        stage ('terraform ${ACTION}') {
+            sh 'terraform ${ACTION} -auto-approve -var-file=env/${ENV}.tfvars'
         }
     }
 }
