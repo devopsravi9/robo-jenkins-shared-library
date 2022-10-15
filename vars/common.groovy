@@ -91,9 +91,9 @@ def publishArtifact () {
        }
    }
 
-//    stage ('deploy to dev env') {
-//        build job: 'deploy-any-env', parameters: [string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'ENV', value: "${ENV}"), string(name: 'TAG_NAME', value: "${TAG_NAME}")]
-//    }
+    stage ('deploy to dev env') {
+        build job: 'deploy-any-env', parameters: [string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'ENV', value: "${ENV}"), string(name: 'TAG_NAME', value: "${TAG_NAME}")]
+    }
 
     stage ('run smoketests') {
         sh 'echo run smoke tests'
