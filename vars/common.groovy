@@ -2,7 +2,6 @@ def pipelineInit () {
     stage ('clearing old content & git clone') {
         sh 'rm -rf *'
         git branch: 'main', url: "https://github.com/devopsravi9/${GIT}.git"
-        sh ' ls -ltr '
     }
 }
 
@@ -126,5 +125,39 @@ def promoteRelease (SOURCE_ENV, ENV ) {
     }
 }
 
+def publishLocalArtifact () {
+    stage('prepare  artifact ') {
+        if (env.APP_TYPE == 'nodejs') {
+            sh "zip -r ${COMPONENT}-${TAG_NAME}.zip server.js node_modules"
+
+        }
+        if (env.APP_TYPE == 'maven') {
+            sh " mv target/shipping-1.0.jar shipping.jar"
+            sh "zip -r ${COMPONENT}-${TAG_NAME}.zip  shipping.jar"
+        }
+
+        if (env.APP_TYPE == 'python') {
+            sh """
+                zip -r ${COMPONENT}-${TAG_NAME}.zip *.py payment.ini requirements.txt
+            """
+        }
+
+        if (env.APP_TYPE == 'nginx') {
+            sh """
+                cd static
+                zip -r ../${COMPONENT}-${TAG_NAME}.zip  *
+            """
+        }
+    }
+}
+
+def createAMI () {
+    stage ('create AMI') {
+        sh '''
+            terraform init
+            terraform apply -auto-approve 
+        '''
+    }
+}
 
 
