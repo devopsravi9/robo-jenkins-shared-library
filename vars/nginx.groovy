@@ -1,6 +1,6 @@
 def call () {
     env.EXTRA_OPTS=""
-    node ('ci') {
+    node  {
 
         common.pipelineInit ()
         if ( env.BRANCH_NAME == env.TAG_NAME ) {
@@ -10,7 +10,7 @@ def call () {
 
         if (env.BRANCH_NAME == env.TAG_NAME) {
             //common.publishArtifact()
-            common.publishLoacalArtifact()
+            common.publishLocalArtifact()
             common.createAMI()
         }
     }
