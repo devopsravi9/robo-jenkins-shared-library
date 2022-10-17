@@ -1,6 +1,6 @@
 def call () {
     env.EXTRA_OPTS='-Dsonar.java.binaries=./target'
-    node {
+    node ('ci') {
 
         common.pipelineInit ()
         if ( env.BRANCH_NAME == env.TAG_NAME ) {
