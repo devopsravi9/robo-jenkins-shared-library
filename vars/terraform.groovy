@@ -9,7 +9,7 @@ def call () {
 
         stage ('code checkout') {
             sh 'find . | sed -e "1d" | xargs rm -rf *'
-            git branch: 'main', url: 'https://github.com/devopsravi9/robo-terraform-immutable.git'
+            git branch: 'main', url: "https://github.com/devopsravi9/${REPO_NAME}.git"
             sh 'ls -al'
         }
 
